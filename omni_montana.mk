@@ -17,8 +17,8 @@
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/gsm.mk)
 
-$(call inherit-product, device/motorola/cedric/full_cedric.mk)
+$(call inherit-product, device/motorola/montana/full_montana.mk)
 
 $(call inherit-product, vendor/omni/config/common.mk)
 
-PRODUCT_NAME := omni_cedric
+PRODUCT_NAME := omni_montana
