@@ -6,8 +6,8 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 1280
-TARGET_SCREEN_WIDTH := 720
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -15,11 +15,8 @@ PRODUCT_PACKAGES += \
     charger
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := cedric
-PRODUCT_NAME := full_cedric
-PRODUCT_BRAND := Motorola
-#PRODUCT_MODEL := G5
-PRODUCT_MANUFACTURER := Motorola
-
-PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
-ro.product.model
+PRODUCT_DEVICE := montana
+PRODUCT_NAME := full_montana
+PRODUCT_BRAND := motorola
+PRODUCT_MODEL := Moto G5S
+PRODUCT_MANUFACTURER := motorola
