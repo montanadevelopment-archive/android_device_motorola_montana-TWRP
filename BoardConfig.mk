@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The Android Open-Source Project
+# Copyright (C) 2015-2017 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,81 +13,79 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 DEVICE_PATH := device/motorola/montana
-
-TARGET_BOARD_VENDOR := motorola
-
-# Architecture
+TARGET_KERNEL_CONFIG := montana_defconfig
+VENDOR_PATH := device/motorola/montana
+ 
+TARGET_RECOVERY_DEVICE_DIRS := \
+    $(VENDOR_PATH) \
+    $(DEVICE_PATH)
+ 
 TARGET_ARCH := arm64
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a53
-
+ 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
-TARGET_CPU_SMP := true
-
+ 
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+ 
 TARGET_BOARD_PLATFORM := msm8937
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno505
-
-# Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := msm8937
+ 
+TARGET_BOOTLOADER_BOARD_NAME := MSM8937
 TARGET_NO_BOOTLOADER := true
-
-# Kernel
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237
-BOARD_KERNEL_CMDLINE += ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 vmalloc=350M androidboot.selinux=permissive
+ 
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 vmalloc=400M androidboot.bootdevice=7824900.sdhci movablecore=160M androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
+BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_SEPARATED_DT := true
-BOARD_KERNEL_LZ4C_DT := true
-BOARD_DTBTOOL_ARGS := --force-v3 --motorola 1
-TARGET_CUSTOM_DTBTOOL := dtbtool_custom
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_ARCH := arm64
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
 BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_KERNEL_SEPARATED_DT := true
 KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/aarch64/aarch64-linux-android-4.9/bin
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-androidkernel-
-TARGET_KERNEL_CONFIG := montana_defconfig
+TARGET_CUSTOM_DTBTOOL := dtbtool_moto
+KERNEL_TOOLCHAIN_PREFIX := aarch64-linux-androidkernel-
 TARGET_KERNEL_SOURCE := kernel/motorola/msm8937
-
+ 
 LZMA_RAMDISK_TARGETS := recovery
-
-# Partitions
-BOARD_FLASH_BLOCK_SIZE := 131072
-BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 26301931008
-
-# File systems
-BOARD_HAS_LARGE_FILESYSTEM := true
+ 
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+ 
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-
+ 
+TARGET_RECOVERY_FSTAB := device/motorola/montana/twrp.fstab
+ 
+RECOVERY_SDCARD_ON_DATA := true
+ 
+# don't take forever to wipe
+BOARD_SUPPRESS_SECURE_ERASE := true
+ 
 # Crypto
 TARGET_HW_DISK_ENCRYPTION := true
 TW_INCLUDE_CRYPTO := true
-TARGET_CRYPTFS_HW_PATH := device/motorola/montana/cryptfs_hw
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
-
+ 
+# Partitions
+# These sizes don't really matter for building TWRP
+BOARD_FLASH_BLOCK_SIZE := 131072
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216        #    16384 * 1024 mmcblk0p37
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16879616    #    16484 * 1024 mmcblk0p38
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4294967296    #  4194304 * 1024 mmcblk0p53
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 25614597120 # 25014255 * 1024 mmcblk0p54
+ 
 # TWRP
-BOARD_SUPPRESS_SECURE_ERASE := true
-TARGET_RECOVERY_FSTAB := device/motorola/montana/twrp.fstab
-RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-#TW_NEW_ION_HEAP := true
-TW_THEME := portrait_hdpi
+TARGET_RECOVERY_PIXEL_FORMAT := RGB_565
+TW_NEW_ION_HEAP := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_DEFAULT_EXTERNAL_STORAGE := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_THEME := portrait_hdpi
+ 
