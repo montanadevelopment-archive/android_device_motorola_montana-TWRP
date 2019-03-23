@@ -17,6 +17,6 @@ PRODUCT_PACKAGES += \
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := montana
 PRODUCT_NAME := full_montana
-PRODUCT_BRAND := Motorola
+PRODUCT_BRAND := motorola
 PRODUCT_MODEL := Moto G5S
-PRODUCT_MANUFACTURER := Motorola
+PRODUCT_MANUFACTURER := motorola
