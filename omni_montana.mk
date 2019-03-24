@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The Android Open-Source Project
+# Copyright (C) 2016 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,12 +13,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+ 
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/gsm.mk)
-
-$(call inherit-product, device/motorola/montana/full_montana.mk)
-
 $(call inherit-product, vendor/omni/config/common.mk)
-
-PRODUCT_NAME := omni_montana
+ 
+# Specify phone tech before including full_phone
+$(call inherit-product, vendor/omni/config/gsm.mk)
+ 
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+ 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+ 
+ 
+# Define version
+TW_DEVICE_VERSION := 0
+ 
+# Screen density
+PRODUCT_AAPT_CONFIG         := normal
+PRODUCT_AAPT_PREF_CONFIG    := xhdpi
+ 
+# Boot animation
+TARGET_SCREEN_HEIGHT    := 1920
+TARGET_SCREEN_WIDTH     := 1080
+ 
+# Encryption
+PRODUCT_PACKAGES += \
+    libcryptfs_hw
+ 
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images \
+    charger
+ 
+# Device identifier. This must come after all inclusions
+PRODUCT_DEVICE          := montana
+PRODUCT_NAME            := omni_montana
+PRODUCT_MODEL           := Moto G5S
+PRODUCT_BRAND           := Motorola
+PRODUCT_MANUFACTURER    := Motorola
+BOARD_VENDOR            := motorola
