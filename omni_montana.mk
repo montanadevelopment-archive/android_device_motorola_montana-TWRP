@@ -45,7 +45,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images \
     charger
- 
+
+PRODUCT_COPY_FILES += \
+bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE          := montana
 PRODUCT_NAME            := omni_montana
