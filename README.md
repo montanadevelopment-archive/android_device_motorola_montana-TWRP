@@ -1,3 +1,7 @@
+[Notes for building TWRP](https://github.com/montanadevelopment/android_device_motorola_montana-TWRP/blob/twrp-7.1/notes.md)
+
+---
+
 Copyright (C) 2017-2019 - The LineageOS Project.
  
 Device configuration for Moto G5S (XT1792 XT1794 XT1795 XT1799-2)
