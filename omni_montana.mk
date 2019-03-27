@@ -13,41 +13,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
- 
+
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
- 
+
 # Specify phone tech before including full_phone
 $(call inherit-product, vendor/omni/config/gsm.mk)
- 
+
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
- 
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
- 
- 
+
+
 # Define version
 TW_DEVICE_VERSION := 0
- 
+
 # Screen density
 PRODUCT_AAPT_CONFIG         := normal
 PRODUCT_AAPT_PREF_CONFIG    := xhdpi
- 
+
 # Boot animation
 TARGET_SCREEN_HEIGHT    := 1920
 TARGET_SCREEN_WIDTH     := 1080
- 
+
 # Encryption
 PRODUCT_PACKAGES += \
     libcryptfs_hw
- 
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
+# Time Zone data for recovery
 PRODUCT_COPY_FILES += \
-bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+    bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 
 # sdcardfs
 PRODUCT_PROPERTY_OVERRIDES += \
